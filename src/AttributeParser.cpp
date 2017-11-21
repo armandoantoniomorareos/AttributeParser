@@ -10,7 +10,7 @@ AttributeParser::AttributeParser(string line)
 {
 	//this->line = line;
 	//cout<<this->line<<endl;
-	ss<<line;
+	//ss<<line;
 }
 
 
@@ -22,25 +22,36 @@ void AttributeParser::add(string tag, map<string, string> attributeMap)
 }
 
 
-string AttributeParser::getTag()
+string AttributeParser::getTag(stringstream &ss)
 {
 	string tag;
 	getline(ss, tag, ' ');
 	tag.erase(tag.begin());
 	cout<<"tag : "<<tag<<endl;
-	getAttributeList("");
-
+	//getAttributeList("");
+	return tag;
 }
 
 
-map<string, string> AttributeParser::getAttributeList(string str)
+map<string, string> AttributeParser::getAttributeList(stringstream &ss)
 {
-	string tmp;
+	string tmp, key="", value="";
 	map<string, string> attr;
 	
 	while(getline(ss, tmp, ' ')){
-		//cout<<tmp<<endl;
+		if(tmp != "="){
+			if(key.empty())
+			{
+				key = tmp;
+			}else if(value.empty())
+			{		
+				value = tmp;
+				attr.insert(pair<string, string>(key, value));	
+				cout<<"Key: "<<key<<" Value: "<<value<<endl;
+				value = key = "";
+			}
+		}
 	}
 
-	
+	return attr;
 }
