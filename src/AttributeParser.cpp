@@ -21,6 +21,12 @@ void AttributeParser::add(string tag, map<string, string> attributeMap)
 
 }
 
+string AttributeParser::getValue(string tag, string attr)
+{
+	map<string, string> tmp = parserMap[tag];
+	cout<<" Values: "<<tmp[attr]<<endl;
+	return "";
+}
 
 string AttributeParser::getTag(stringstream &ss)
 {
